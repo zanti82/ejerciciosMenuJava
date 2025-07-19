@@ -39,6 +39,7 @@ public class Mapsarray {
                     String valueUpass= read.next();
 
                     user.put(keyUname,valueUpass); // con esto registro usuarios
+                    System.out.println("usted registro "+user.entrySet());
 
 
 
@@ -71,13 +72,13 @@ public class Mapsarray {
                 } break;
 
                 case 2: { admin.put("santiago","admin1");
-                admin.put("julian","admin2");
-                admin.put("maricela","admin3");
+                            admin.put("julian","admin2");
+                            admin.put("maricela","admin3");
         
-                System.out.println("ingresa tu usuario ");
-                String keyName= read.next();
-                System.out.println("ingresa su contraseña ");
-                String valuePass= read.next();
+                        System.out.println("ingresa tu usuario ");
+                        String keyName= read.next();
+                        System.out.println("ingresa su contraseña ");
+                        String valuePass= read.next();
         
                
                     if(admin.containsKey(keyName)){
@@ -112,10 +113,7 @@ public class Mapsarray {
             }
 
 
-
-            
-
-           
+        
 
             } 
             
@@ -123,16 +121,7 @@ public class Mapsarray {
             System.out.println("******************SOFTWARE 2MSJ***********************");
             System.out.println("ELABORATE FOR MARICELA, MARIAJOSE, JULIAN  Y SANTIAGO");
 
-
-
-
-
-
-     
-
-   
-
-
+            read.close();
         
     }
 }

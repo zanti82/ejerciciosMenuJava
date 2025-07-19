@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class InfoClientes {
+public class InfoClientesFinalSemestre1 {
     
     //PROGRAMA PARA PEDIR INFORMACION CON UN INDICE AL INICIO
  public static void main(String[] args)
