@@ -1,45 +1,78 @@
-import java.util.HashMap;
-import java.util.Map;
+/**
+ * Manejo de una tienda virtual de jeans, donde tenemos las clases
+ * Administradores, Clientes que herdan de la superclase User.
+ * Tambien tenemos las clases Jeans que maneja el inventario.
+ * La clase TiendaRB maneja las listas de los clinentes, administradores y productos.
+ */
+
+
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 
 public class sistemasRambed {
     public static void main(String[] args) {
+        Scanner read=new Scanner(System.in);
        
-        //BLOQUE PARA MAPS DE USUARIO Y CONTRASEÑA
+        //BLOQUE PARA GAUARDAR CLIENTES, ADMINISTRADORES, JEANS
 
-        Map<String, String > admin= new HashMap<>(); // aca creo un diccionario de administradores
-        Map<String, String > user= new HashMap<>(); // aca creo un diccionario de usuarios
+        ArrayList<Admin> listaAdmin= new ArrayList<>();
+        ArrayList<Cliente> listaClientes= new ArrayList<>();
+        ArrayList<Jeans> listaJeans= new ArrayList<>();
+        ArrayList<Factura> listaFacturas=new ArrayList<>();
 
-        // BLOQUE FCATURAS
+        //aca creo los admin
+        Admin adm1= new Admin("100234","Julian", "julina@mail.com", "1111","32100000",  "crr 20");
+        Admin adm2= new Admin("100235","Maricela", "maricela@mail.com", "2222","32100033",  "calle 22");
+        Admin adm3= new Admin("100236","MariaJ", "maria@mail.com", "3333","32100022",  "crr 30");
+        Admin adm4= new Admin("100237","Santiago", "santi@mail.com", "4444","32100044",  "cll 49");
+       
+        //los anexamos al arraylist instanciando una clase tienda
+        /**
+         * La clase tienda recoge la informacion de las listas de administradores, cliente y productos
+         * Queda faltando la de las facturas
+         */
+
+        TiendaRB tiendaVirtualRB= new TiendaRB(listaJeans, listaClientes, listaAdmin, listaFacturas);
+
+        tiendaVirtualRB.addAdmin(adm1);
+        tiendaVirtualRB.addAdmin(adm2);
+        tiendaVirtualRB.addAdmin(adm3);
+        tiendaVirtualRB.addAdmin(adm4);
+             
+        //creación de objetos jeans para tener una lista
+
+        Jeans ref1= new Jeans(1001,"ClasicoDenim", 89000);
+        Jeans ref2= new Jeans(1002,"ClasicoDril", 89000);
+        Jeans ref3= new Jeans(1003,"CargoDril", 110000);
+        Jeans ref4= new Jeans(1004,"CargoDemin", 110000);
+
+        //anexamos jeans al arraylist de listajeans por medio de la tienda
+
+        tiendaVirtualRB.addRef(ref1);
+        tiendaVirtualRB.addRef(ref2);
+        tiendaVirtualRB.addRef(ref3);
+        tiendaVirtualRB.addRef(ref4);
+        
+        
+        
+        // BLOQUE FACTURAS con arrays simples
         int contFac=0;
+    
         String [] facturas=new String[20];
         Double [] valorFact= new Double[20];
 
-        Scanner read=new Scanner(System.in);
+           
+              
+//inicio del programa **************
 
-        //BLOQUE DE REFERECIAS DE VENTAS 
-        String[] jeans= new String[20];
-        Double[] precio= new Double[20];
-
-        jeans[0]="JeanClasico";
-        jeans[1]="Cargo/dril";
-        jeans[2]="Cargo Jean";
-        jeans[3]="PnatRibete";
-        jeans[4]="JeanBaggy";
-
-        precio[0]= 80000.0;
-        precio[1]= 99000.0;
-        precio[2]= 99000.0;
-        precio[3]= 80000.0;
-        precio[4]= 85000.0;
-
-       
         int opIncial=0;
         char opCliente;
 
-       
+      
 
         System.out.println("******************************");
          System.out.println("WELCOME TO RAMBED JEANS");
@@ -59,131 +92,185 @@ public class sistemasRambed {
                     opCliente=read.next().charAt(0);
                     
                     if (opCliente=='n' || opCliente=='N') {
-                        System.out.println("ingresa tu usuario ");
-                        String keyUname= read.next();
-                        System.out.println("ingresa su contraseña ");
-                        String valueUpass= read.next();
+                        System.out.println("ingresa tu Cedula ");
+                        String clienteId= read.next();
+                        System.out.println("ingresa tu nombre ");
+                        String clienteName= read.next();
+                        System.out.println("ingresa tu email ");
+                        String clienteMail= read.next();
+                        System.out.println("ingresa tu pass ");
+                        String clientePass= read.next();
+                        System.out.println("ingresa tu phone ");
+                        String clientePhone= read.next();
+                        System.out.println("ingresa tu direccion ");
+                        String clienteAddress= read.next();
 
-                        user.put(keyUname,valueUpass); // con esto registro usuarios
-                        System.out.println("usted registro "+user.entrySet());
+                        //con la info capturada creeamos clientes con la siguiente instruccion
+                        //aca lo guardamos en el arraylist de la tiendaviertual de listaClinetes
+
+                        tiendaVirtualRB.addClientes(new Cliente(clienteId, clienteName, clienteMail, clientePass, clientePhone, clienteAddress));
+                                              
+                        
+
+                        //ensayis
+                        tiendaVirtualRB.getListClientes();
 
 
 
                         
                     }else if(opCliente=='s' || opCliente=='S'){
-                        System.out.println("ingresa tu usuario ");
-                        String keyUname= read.next();
-                        System.out.println("ingresa su contraseña ");
-                        String valueUpass= read.next();
 
-                        if(user.containsKey(keyUname)){
-                            String valuename= user.get(keyUname);
-                            if (valuename.equals(valueUpass)) {
-                                System.out.println("loggin existoso");
+                        System.out.println("ingresa tu email ");
+                        String nclienteMail= read.next();
+                        System.out.println("ingresa tu pass ");
+                        String nclientePass= read.next();
 
-                                //BLOQUE VENTAS DEL CLIENTE
+                        boolean loggin=false;
 
-                                        System.out.println("**************************************");
-                                        System.out.println("estas en la pagina de ventas, \n  este es la lista de jeans:");
-                                        System.out.println("**************************************");
-                                        System.out.println("OPCION \t JEANS \t\t PRECIO ");
-                                        
+                        for (Cliente c: listaClientes) {
+
+                            if(c.getMail().equals(nclienteMail) && c.getPassword().equals(nclientePass)){
+
+                                    loggin=true;
+
+                                System.out.println("Loggin exitoso");
+
+                            }else{
+                                
+
+                            }    
+                        }
+                        
+                        if(loggin==true){
+
+                        
+                                System.out.println("**************************************");
+                                System.out.println("estas en la pagina de ventas, \n  este es la lista de jeans:");
+                                System.out.println("**************************************");
+                                System.out.println("OPCION \t JEANS \t\t PRECIO ");
+                                
+                                //  jeans.getListRef();
+
+                                //aca listo los jeans pero en los arrays para mostrar el numero y escoja facil
+
+                               ArrayList<Jeans> jeans= tiendaVirtualRB.getListaJeans();
+
+                               for(int i=0;i<listaJeans.size(); i++){
+
+                               
+
+                                    System.out.println( 
+                                                        "\n ref: "+jeans.get(i).getId()+
+                                                       "\n estilo: " +jeans.get(i).getEstilo()+
+                                                       "\n precios:"+jeans.get(i).getPrice());
                                     
-                                        for(int i=0; i<jeans.length;i++){
+                                }
+                            
+                                    
+                            System.out.println("**************************************");
 
-                                            if(jeans[i]!= null){
-                                            System.out.println( i+"\t"+jeans[i]+"\t"+precio[i]);}
-                                            else{ }
-                                            
+                            System.out.println("Quieres agregar una compra S/N");
+                            char op= read.next().charAt(0);
+                            
+                                double ventaTotal=0;
+                                int cont=0;
 
+                                while (op == 's' || op == 'S' ) {
+
+                                    System.out.println("");
+                                    
+                                    System.out.println("escoge el numero de la ref del jean: ");
+                                    int opcion=read.nextInt();
+                                    System.out.println("cuantas unidades quieres de este jean ?:  ");
+                                    int und= read.nextInt();
+
+                                    double valorjean=0;
+                                    double venta=0;
+                                    for(int i=0;i<listaJeans.size(); i++){
+
+                                        if(jeans.get(i).getId() == opcion){
+
+                                             valorjean= jeans.get(i).getPrice();
+
+                                             venta= und * valorjean;
+
+                                             System.out.println("Usted compro ref: "+jeans.get(i).getEstilo()+
+                                             " und: "+ und + " valor: "+ venta);
                                         }
-                                                
-                                            
-                                    System.out.println("**************************************");
+
+                                    }
+                                                        
+
+                                    ventaTotal=venta+ventaTotal;
+                                    cont++;
 
                                     System.out.println("Quieres agregar una compra S/N");
-                                    char op= read.next().charAt(0);
+                                    op= read.next().charAt(0);
                                     
-                                        double ventaTotal=0;
-                                        int cont=0;
-
-                                        while (op == 's' || op == 'S' ) {
-
-                                            System.out.println("");
-                                            
-                                            System.out.println("escoge el numero de la opción del jean: ");
-                                            int opcion=read.nextInt();
-                                            System.out.println("cuantas unidades quieres de este jean?:  ");
-                                            int und= read.nextInt();
-
-                                            double venta= und * precio[opcion];
-
-                                            
-
-                                            ventaTotal=venta+ventaTotal;
-                                            cont++;
-
-                                            System.out.println("Quieres agregar una compra S/N");
-                                            op= read.next().charAt(0);
-                                            
-                                        }
-
-                                        System.out.println("************************************");
-                                        System.out.println("Usted compró:.... "+cont+" items .......total: " +ventaTotal+" $");
-                                        
-                                        System.out.println("************************************");
-                                        System.out.println("************************************");
-                                    
-
-                                    
-
-                                        facturas[contFac] = "100"+contFac;
-                                        valorFact[contFac]= ventaTotal;
-
-                                        System.out.println("FACTURA NRO: "+ facturas[contFac]);
-                                       
-                                        contFac++;
-
-                                    //FIN BLOQUE VENTAS DEL CLIENTE
-                                   
-
-
-                                }else{
-                                    System.out.println("usuario cliente econtrado, diferente pass");
-                                        }
-                                
-                            }else{
-                            
-                                System.out.println("Error en usuario y contraseña");
-                               
                                 }
 
-                        }else{};
+                                System.out.println("************************************");
+                                System.out.println("Usted compró:.... "+cont+" items .......total: " +ventaTotal+" $");
+                                
+                                System.out.println("************************************");
+                                System.out.println("************************************");
+                            
 
-                        //I use this sentence to change the option for the switch
+                            
+
+                                facturas[contFac] = "100"+contFac;
+                                valorFact[contFac]= ventaTotal;
+
+                                System.out.println("FACTURA NRO: "+ facturas[contFac]);
+                                
+                                contFac++;
+
+                                    //FIN BLOQUE VENTAS DEL CLIENTE
+                                                                                            
+                            }else{
+                                System.out.println("Error en usuario y constraseña");
+                            };
+
+                           
+                       //esto para cambiar el switch
 
                         System.out.println("ESCOGE UNA OPCION \n 1. CLIENTE \n 2. ADMINISTRADOR \n 3. SALIR ");
                         opIncial=read.nextInt();
                         
                        
 
-                    } break;
+                    }
+                } break;
 
-                case 2: { admin.put("santiago","admin1");
-                            admin.put("julian","admin2");
-                            admin.put("maricela","admin3");
+                case 2: { 
         
-                        System.out.println("ingresa tu usuario ");
-                        String keyName= read.next();
-                        System.out.println("ingresa su contraseña ");
-                        String valuePass= read.next();
-        
-               
-                    if(admin.containsKey(keyName)){
-                        String valuename= admin.get(keyName);
-                        if (valuename.equals(valuePass)) {
-                            System.out.println("loggin existoso");
+                    System.out.println(listaAdmin);
+                        System.out.println("ingresa tu correo");
+                        String adminMail= read.next();
+                        System.out.println("ingresa su contraseña");
+                        String adminPass= read.next();
 
+                        boolean loggin=false;
+
+                        for (Admin a : listaAdmin) {
+
+                            if(a.getMail().equals(adminMail) && a.getPassword().equals(adminPass)){
+
+                                    loggin=true;
+
+                                System.out.println("Loggin exitoso");
+
+                            }else{
+                                
+
+                            }    
+                        }
+
+                        
+
+                            if(loggin){                                   
+                           
+                                
                             //BLOQUE ADMIN
                             System.out.println("**********************************************");
                             System.out.println("HOLA SUPER ADMINISTRADOR, QUE DESEAS HACER HOY");
@@ -198,11 +285,7 @@ public class sistemasRambed {
                                     case 1:
                                             System.out.println("Este es el listado de los jeans en bodega ");
                                             System.out.println("OPCION \t JEANS \t\t PRECIO ");
-                                            for(int i=0;i<jeans.length;i++){
-                                                    if(jeans[i]!= null){
-                                                            System.out.println( i+"\t"+jeans[i]+"\t"+precio[i]);}
-                                                    else{ }
-                                                    }
+                                             tiendaVirtualRB.getListRef();
                                             
                                             System.out.println("seleccion la opcion");
                                             System.out.println("1. Editar productos \n 2. agregar \n 3. salir");
@@ -211,35 +294,57 @@ public class sistemasRambed {
                                             while(ops!=3){
                                                     switch (ops) {
                                                             case 1:
-                                                                    System.out.println("introduce la posicion que deseas editar");
+                                                                    System.out.println("introduce la referencia que deseas editar");
                                                                     int pos=read.nextInt();
-                            
-                                                                    System.out.println("ingresa el nombre: ");
-                                                                    String cambioNom=read.next();
-                                                                    jeans[pos]=cambioNom;
-                            
-                                                                    System.out.println("ingresa el valor: ");
-                                                                    double  cambioPrec=read.nextDouble();
-                                                                    precio[pos]=cambioPrec;
-                            
-                                                                    System.out.println( "actualizacion= "+jeans[pos]+"....."+precio[pos]);
-                            
+
+                                                                    ArrayList<Jeans> jeans= tiendaVirtualRB.getListaJeans();
+
+                                                                    for(int i=0;i<listaJeans.size(); i++){
+
+                                                                        if(jeans.get(i).getId() == pos){
+
+                                                                            System.out.println("ingresa el nombre: ");
+                                                                            String cambioNom=read.next();
+                                                                            jeans.get(i).setEstilo(cambioNom);
                                                                             
+                                    
+                                                                            System.out.println("ingresa el valor: ");
+                                                                            double  cambioPrec=read.nextDouble();
+                                                                            jeans.get(i).setPrice(cambioPrec);
+
+                                                                            System.out.println( "actualizacion= "
+                                                                                                +"\n ref: "+jeans.get(i).getId()+
+                                                                                               "\n estilo: " +jeans.get(i).getEstilo()+
+                                                                                               "\n precios:"+jeans.get(i).getPrice());
+                                                                            
+                                                                        }
+                                
+                                
+                                                                    }
+                                                                   
                                                                     break;
                             
                                                             case 2:
-                                                                    System.out.println("ingresa la posicion del 6 al 20");
-                                                                    pos=read.nextInt();
-                                                                
-                                                                    System.out.println("ingresa el nombre: ");
+                                                                    System.out.println("AHora vas a agregar una ref nueva");
+                                                                        
+                                                                    System.out.println("ingresa el id: ");
+                                                                    int newId=read.nextInt();
+                                                                                                
+                                                                    System.out.println("ingresa el estilo: ");
                                                                     String newNom=read.next();
-                                                                    jeans[pos]=newNom;
-                            
+                                                                                                
                                                                     System.out.println("ingresa el valor: ");
                                                                     double  newPrec=read.nextDouble();
-                                                                    precio[pos]=newPrec;
-                            
-                                                                    System.out.println( "ingresaste= "+jeans[pos]+"....."+precio[pos]);
+
+                                                                    Jeans jeansNew= new Jeans(newId, newNom, newPrec);
+                                                                    
+                                                                    tiendaVirtualRB.addRef(jeansNew);
+                                                                    
+                                                                    System.out.println( "Ingresaste= "
+                                                                    +"\n ref: "+jeansNew.getId()+
+                                                                   "\n estilo: " +jeansNew.getEstilo()+
+                                                                   "\n precios:"+jeansNew.getPrice());
+                                                                 
                             
                                                                     break;
                                                         
@@ -294,13 +399,12 @@ public class sistemasRambed {
 
 
                         }else{
-                                System.out.println("usuario admin econtrado, diferente pass");
+                            System.out.println("Error en usuario y constraseña");
+                               
                         }
-                        
-                    }else{
                     
-                        System.out.println("error en usuario y contraseña");
-                    }
+                        
+                  
                     System.out.println("/////////////////////////////////////////////////////////");
                     System.out.println("ESCOGE UNA OPCION \n 1. CLIENTE \n 2. ADMINISTRADOR \n 3. SALIR ");
                     opIncial=read.nextInt();
@@ -332,6 +436,7 @@ public class sistemasRambed {
             System.out.println("ELABORATE FOR MARICELA, MARIAJOSE, JULIAN  Y SANTIAGO");
 
 
-            read.close();
+            read.close();   
     }
+           
 }

@@ -1,0 +1,20 @@
+
+que necesito?
+ 1 que abara el programa y pregunte si es cliente o administrador.
+
+cliente
+
+que salga las ocpciones de ventas y precios.
+que imprima la factura..ej: usted comprro jeancago 2 valor 3000000 total fact
+guardar la factura y valor
+
+necesidades: array de jeans y precios...este lo crea el amdim.
+listar el array, escoger la opcion, escribir la cantidad, calculcar el total, preguntar si quiere otro
+mostrar lo que compro y el total.
+guaradar el total en un array de ventasdel dia
+
+admin
+puede editar ver la lista de items, puede editarlos, y puede ver las ventas registradas
+
+necesidades: crear y editar array de jeans.
+ver las ventas del dia.
