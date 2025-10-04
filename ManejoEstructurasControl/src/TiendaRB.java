@@ -43,7 +43,9 @@ public class TiendaRB{
 
    }
 
-   public void getListRef(){
+   public void listarJeans(){
+
+    System.out.println("Esta el al lista de las referencias: ");
 
     for (Jeans jeans : listaJeans) {
 
@@ -105,16 +107,6 @@ public class TiendaRB{
 
    }
 
- 
-
   
-       
-   
-
-
-    
-    
-   
-    
     
 }
