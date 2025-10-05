@@ -23,7 +23,7 @@ public class sistemasRambed {
 
     //variables para comprar jeans
 
-    static char op= read.next().charAt(0);
+    static char op;
     static double ventaTotal=0;
     static int cont=0;
 
@@ -128,6 +128,8 @@ public class sistemasRambed {
                             System.out.println("**************************************");
 
                             System.out.println("Quieres agregar una compra S/N");
+                           
+                            op=read.next().charAt(0);
                                 
 
                                 while (op == 's' || op == 'S' ) {
